@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  apache:
+    container_name: apache2
+    build: ./apache
+    ports:
+      - '8082:80'
+      - '8445:443'
+    volumes:
+      - "${DEVSTACK_WWWROOT}:/var/www/html"
+    links:
+      - php
+  php:
+    image: php:7.2-fpm
+    container_name: php7.2-fpm
+    ports:
+        - "9000:9000"
+    volumes:
+      - "${DEVSTACK_WWWROOT}:/var/www/html"
+

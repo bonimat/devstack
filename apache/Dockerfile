@@ -1,0 +1,31 @@
+FROM ubuntu:latest
+MAINTAINER bonimat
+
+RUN apt-get update
+RUN apt-get -y upgrade
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install apache2  curl \
+            apache2-doc apache2-utils libapache2-mod-php 
+
+# Enable apache mods.
+RUN a2enmod rewrite ssl actions include cgi proxy_fcgi alias setenvif
+RUN a2dismod php7.2
+
+# Manually set up the apache environment variables
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+ENV APACHE_LOG_DIR /var/log/apache2
+ENV APACHE_LOCK_DIR /var/lock/apache2
+ENV APACHE_PID_FILE /var/run/apache2.pid
+
+EXPOSE 80
+EXPOSE 9000
+
+#Copy configuration for php.fpm
+COPY php-fpm.conf /etc/apache2/conf-available
+
+RUN a2enconf php-fpm
+
+
+# By default, simply start apache.
+CMD /usr/sbin/apache2ctl -D FOREGROUND
