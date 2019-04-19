@@ -14,8 +14,6 @@ services:
   php:
     image: php:7.2-fpm
     container_name: php7.2-fpm
-    ports:
-        - "9000:9000"
     volumes:
       - "${DEVSTACK_WWWROOT}:/var/www/html"
 
