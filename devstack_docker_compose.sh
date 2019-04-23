@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+## Variabili di Ambiente
+# ${DEVSTACK_WWWROOT} : percorso delle risorse da 
+set -e
+
+
+#copiato da moodle-docker-compose
+# Nasty portable way to the directory of this script, following symlink,
+# because readlink -f not on OSX. Thanks stack overflow..
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+basedir="$( cd -P "$( dirname "$SOURCE" )/" && pwd )"
+
+echo 'Settings:'
+
+# Controllo varibiali di ambiente:
+if [ ! -d "DEVSTACK_WWWROOT" ];
+then
+    export DEVSTACK_WWWROOT="$basedir/html"
+    echo " - Use default wwwroot: \$DEVSTACK_WWWROOT=${DEVSTACK_WWWROOT}"
+    
+fi
+
+if [ -z "$DEVSTACK_PORT" ];
+then
+    export DEVSTACK_PORT=8084
+    echo " - Use default port: \$DEVSTACK_PORT = 8084"
+fi
+if [ -z "$DEVSTACK_DB" ];
+then
+    echo " - No DB"
+fi
+
+
+dockercompose="docker-compose -f ${basedir}/base.yml"
+
+
+# Finale
+echo "$dockercompose $@"
+#$dockercompose $@
