@@ -30,6 +30,12 @@ then
     echo " - Use default port: \$DEVSTACK_PORT = 8084"
 fi
 
+if [ -z "$DEVSTACK_PHPFPM_PORT" ];
+then
+    export DEVSTACK_PHPFPM_PORT=8999
+    echo " - Use default port: \$DEVSTACK_PHPFPM_PORT = 9000"
+fi
+
 if [ -z "$DEVSTACK_DB" ];
 then
     echo " - No DB"

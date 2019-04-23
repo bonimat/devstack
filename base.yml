@@ -3,6 +3,8 @@ version: '2'
 services:
   apache:
     container_name: apache2
+    environment:
+      - PHPFPM_PORT=${DEVSTACK_PHPFPM_PORT}
     build: ./apache
     ports:
       - '8082:80'
@@ -11,13 +13,10 @@ services:
       - "${DEVSTACK_WWWROOT}:/var/www/html"
     links:
       - php
-#  php:
-#    image: php:7.2-fpm
-#    container_name: php7.2-fpm
-#    volumes:
-#      - "${DEVSTACK_WWWROOT}:/var/www/html"
   php:
     container_name: php7.2-fpm
+    environment:
+      - PHPFPM_PORT=${DEVSTACK_PHPFPM_PORT}
     build: ./php-fpm
     container_name: php7.2-fpm
     volumes:

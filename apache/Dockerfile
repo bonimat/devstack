@@ -18,8 +18,10 @@ ENV APACHE_LOG_DIR /var/log/apache2
 ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_PID_FILE /var/run/apache2.pid
 
+ENV PHPFPM_PORT ${DEVSTACK_PHPFPM_PORT}
+
 EXPOSE 80
-EXPOSE 9000
+EXPOSE $DEVSTACK_PHPFPM_PORT
 
 #Copy configuration for php.fpm
 COPY conf/php-fpm.conf /etc/apache2/conf-available

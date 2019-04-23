@@ -6,6 +6,7 @@ la 18.04) che contiene i seguenti software:
 
 - apache2 (ver 2.4)
 - php fpm (ver 7.2)
+- mailhog(ver)
 - database (mysql/psql/oracle)
 Nella versione degli sviluppatori di Moodle (versione Moodle), in bin/moodle-docker-compose e' presente un insieme di condizioni che costruiscono la stringa finale con cui viene lanciato il docker-compose. L'idea è interessante e la si vuole utilizzare.
 
@@ -32,9 +33,13 @@ es.
 > echo $DEVSTACK_WWWROOT 
 /home/matteo/Workspaces/DockerProjects/devStack/html
 ~~~
+
+
 ### Porte utilizzate:
 Le porte utilizzata internamente è la 9000 (attenzione alla direttiva che fa comunicare fpm con apache2: ho trovato un post (https://stackoverflow.com/questions/41306112/why-cant-apache-communicate-with-php-fpm-in-separate-containers-using-docker-de) che spiega come la comunicazione per socket tcp deve essere trasmessa usando il servizio 'php' che la Docker network associa come nome DNS e non usando l'indirizzo 127.0.0.1 perché indirizzo di rete locale. Il php è apache2 non risiedono su un host comune con docker, ma sono servizi isolati).
-Le porte esposte in prima fase sono la **8082** per l'http e la **8445** per https.
+Le porte esposte per default sono la **8082** per l'http e la **8445** per https.
+Le porte per l'utilizzo di **mailhog** sono **8025** e la **1025**.
+
 
 
 # Comandi Utili
