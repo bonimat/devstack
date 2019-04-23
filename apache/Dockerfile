@@ -22,9 +22,11 @@ EXPOSE 80
 EXPOSE 9000
 
 #Copy configuration for php.fpm
-COPY php-fpm.conf /etc/apache2/conf-available
+COPY conf/php-fpm.conf /etc/apache2/conf-available
+COPY conf/000-default.conf /etc/apache2/sites-available
 
 RUN a2enconf php-fpm
+RUN a2ensite 000-default.conf
 
 
 # By default, simply start apache.
