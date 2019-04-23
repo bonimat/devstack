@@ -11,8 +11,14 @@ services:
       - "${DEVSTACK_WWWROOT}:/var/www/html"
     links:
       - php
+#  php:
+#    image: php:7.2-fpm
+#    container_name: php7.2-fpm
+#    volumes:
+#      - "${DEVSTACK_WWWROOT}:/var/www/html"
   php:
-    image: php:7.2-fpm
+    container_name: php7.2-fpm
+    build: ./php-fpm
     container_name: php7.2-fpm
     volumes:
       - "${DEVSTACK_WWWROOT}:/var/www/html"
