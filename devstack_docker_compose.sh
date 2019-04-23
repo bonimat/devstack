@@ -4,7 +4,6 @@
 # ${DEVSTACK_WWWROOT} : percorso delle risorse da 
 set -e
 
-
 #copiato da moodle-docker-compose
 # Nasty portable way to the directory of this script, following symlink,
 # because readlink -f not on OSX. Thanks stack overflow..
@@ -22,8 +21,7 @@ echo 'Settings:'
 if [ ! -d "DEVSTACK_WWWROOT" ];
 then
     export DEVSTACK_WWWROOT="$basedir/html"
-    echo " - Use default wwwroot: \$DEVSTACK_WWWROOT=${DEVSTACK_WWWROOT}"
-    
+    echo " - Use default wwwroot: \$DEVSTACK_WWWROOT=${DEVSTACK_WWWROOT}"    
 fi
 
 if [ -z "$DEVSTACK_PORT" ];
@@ -31,15 +29,18 @@ then
     export DEVSTACK_PORT=8084
     echo " - Use default port: \$DEVSTACK_PORT = 8084"
 fi
+
 if [ -z "$DEVSTACK_DB" ];
 then
     echo " - No DB"
 fi
 
-
 dockercompose="docker-compose -f ${basedir}/base.yml"
 
+# Mailhog service
+export DEVSTACK_CONFMAILHOG="$basedir/mailhog/conf"
+dockercompose="$dockercompose -f ${basedir}/mailhog/service.mail.yml"
 
 # Finale
 echo "$dockercompose $@"
-#$dockercompose $@
+$dockercompose $@

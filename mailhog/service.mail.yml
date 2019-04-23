@@ -1,0 +1,12 @@
+version: "2"
+services:
+  apache:
+    volumes:
+      - "${DEVSTACK_CONFMAILHOG}/apache2_mailhog.conf:/etc/apache2/conf-enabled/apache2_mailhog.conf"
+    depends_on:
+      - mailhog
+  mailhog:
+    image: mailhog/mailhog
+    ports: 
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
