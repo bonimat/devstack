@@ -18,7 +18,7 @@ basedir="$( cd -P "$( dirname "$SOURCE" )/" && pwd )"
 echo 'Settings:'
 
 # Controllo varibiali di ambiente:
-if [ ! -d "DEVSTACK_WWWROOT" ];
+if [ -z "$DEVSTACK_WWWROOT" ];
 then
     export DEVSTACK_WWWROOT="$basedir/html"
     echo " - Use default wwwroot: \$DEVSTACK_WWWROOT=${DEVSTACK_WWWROOT}"    
