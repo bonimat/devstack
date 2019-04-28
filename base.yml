@@ -17,7 +17,12 @@ services:
     container_name: php7.2-fpm
     environment:
       - PHPFPM_PORT=${DEVSTACK_PHPFPM_PORT}
-    build: ./php-fpm
+      - XDEBUG_PORT=${DEVSTACK_XDEBUG_PORT}
+    build: 
+      context: ./php-fpm
+      args:
+        XDEBUG_REMOTEIP : "${DEVSTACK_XDEBUG_REMOTEIP}"
+        XDEBUG_IDEKEY : "${DEVSTACK_XDEBUG_IDEKEY}"
     container_name: php7.2-fpm
     volumes:
       - "${DEVSTACK_WWWROOT}:/var/www/html"

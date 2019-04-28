@@ -33,13 +33,30 @@ fi
 if [ -z "$DEVSTACK_PHPFPM_PORT" ];
 then
     export DEVSTACK_PHPFPM_PORT=8999
-    echo " - Use default port: \$DEVSTACK_PHPFPM_PORT = 9000"
+    echo " - Use default port: \$DEVSTACK_PHPFPM_PORT = 8999"
 fi
 
+if [ -z "$DEVSTACK_XDEBUG_PORT" ];
+then
+    export DEVSTACK_XDEBUG_PORT=9000
+    echo " - Use default port: \$DEVSTACK_XDEBUG_PORT = 9000"
+fi
+
+if [ -z "${DEVSTACK_XDEBUG_IDEKEY}" ];
+then
+    export DEVSTACK_XDEBUG_IDEKEY=PHPSTORM
+    echo " - Use default port: \$DEVSTACK_XDEBUG_IDEKEY=PHPSTORM"
+fi
+
+export DEVSTACK_XDEBUG_REMOTEIP=$(ip -4 addr show docker0 | grep -Po 'inet \K[\d.]+')
+echo "Use default IP docker0: ${DEVSTACK_XDEBUG_REMOTEIP}"
 if [ -z "$DEVSTACK_DB" ];
 then
     echo " - No DB"
 fi
+
+
+
 
 dockercompose="docker-compose -f ${basedir}/base.yml"
 
