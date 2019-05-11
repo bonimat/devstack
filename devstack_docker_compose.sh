@@ -21,32 +21,32 @@ echo 'Settings:'
 if [ -z "$DEVSTACK_WWWROOT" ];
 then
     export DEVSTACK_WWWROOT="$basedir/html"
-    echo " - Use default wwwroot: \$DEVSTACK_WWWROOT=${DEVSTACK_WWWROOT}"    
 fi
+echo " - Use default wwwroot: \$DEVSTACK_WWWROOT=${DEVSTACK_WWWROOT}"
 
 if [ -z "$DEVSTACK_PORT" ];
 then
     export DEVSTACK_PORT=8084
-    echo " - Use default port: \$DEVSTACK_PORT = 8084"
 fi
+echo " - Use default port: \$DEVSTACK_PORT = 8084"
 
 if [ -z "$DEVSTACK_PHPFPM_PORT" ];
 then
     export DEVSTACK_PHPFPM_PORT=8999
-    echo " - Use default port: \$DEVSTACK_PHPFPM_PORT = 8999"
 fi
+echo " - Use default port: \$DEVSTACK_PHPFPM_PORT = 8999"
 
 if [ -z "$DEVSTACK_XDEBUG_PORT" ];
 then
     export DEVSTACK_XDEBUG_PORT=9000
-    echo " - Use default port: \$DEVSTACK_XDEBUG_PORT = 9000"
 fi
+echo " - Use default port: \$DEVSTACK_XDEBUG_PORT = 9000"
 
 if [ -z "${DEVSTACK_XDEBUG_IDEKEY}" ];
 then
     export DEVSTACK_XDEBUG_IDEKEY=PHPSTORM
-    echo " - Use default port: \$DEVSTACK_XDEBUG_IDEKEY=PHPSTORM"
 fi
+echo " - Use default port: \$DEVSTACK_XDEBUG_IDEKEY=PHPSTORM"
 
 export DEVSTACK_XDEBUG_REMOTEIP=$(ip -4 addr show docker0 | grep -Po 'inet \K[\d.]+')
 echo "Use default IP docker0: ${DEVSTACK_XDEBUG_REMOTEIP}"
@@ -63,6 +63,7 @@ dockercompose="docker-compose -f ${basedir}/base.yml"
 # Mailhog service
 export DEVSTACK_CONFMAILHOG="$basedir/mailhog/conf"
 dockercompose="$dockercompose -f ${basedir}/mailhog/service.mail.yml"
+
 
 # Finale
 echo "$dockercompose $@"
