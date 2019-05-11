@@ -12,8 +12,8 @@ services:
     volumes:
       - "${DEVSTACK_WWWROOT}:/var/www/html"
     links:
-      - php
-  php:
+      - php-fpm
+  php-fpm:
     container_name: php7.2-fpm
     environment:
       - PHPFPM_PORT=${DEVSTACK_PHPFPM_PORT}
@@ -26,4 +26,10 @@ services:
     container_name: php7.2-fpm
     volumes:
       - "${DEVSTACK_WWWROOT}:/var/www/html"
-
+  #php-cli:
+  #  container_name: php7.2-cli
+  #  restart: always 
+  #  build: 
+  #    context: ./php-cli
+  #  volumes:
+  #    - "${DEVSTACK_WWWROOT}:/var/www/html"  
