@@ -10,11 +10,17 @@ la 18.04) che contiene i seguenti software:
 - database (mysql/psql/oracle) (incoming)
 
 # Utilizzo
-Il comando da lanciare è
+Per avviare i container il comando da lanciare è
 
 ```
 .\devStack_docker_compose.sh up -d
 ```
+Per stoppare i container invece:
+
+```
+.\devStack_docker_compose.sh down
+```
+
 
 Nel caso si siano ridefinite alcune variabili globali come le porte, è opportuno ricreare le immagini lanciando lo stesso comando ma aggiungendo l'opzione __--build__.
 
