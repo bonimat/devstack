@@ -7,10 +7,83 @@ la 18.04) che contiene i seguenti software:
 - apache2 (ver 2.4)
 - php fpm (ver 7.2)
 - mailhog(ver)
-- database (mysql/psql/oracle)
-Nella versione degli sviluppatori di Moodle (versione Moodle), in bin/moodle-docker-compose e' presente un insieme di condizioni che costruiscono la stringa finale con cui viene lanciato il docker-compose. L'idea è interessante e la si vuole utilizzare.
+- database (mysql/psql/oracle) (incoming)
 
-Il risultato più interessante è che alla fine troviamo la linea di comando costruita con l'aggiunta dei parametri con cui è lanciato il mooodle-docker-compose ('$@' un esempio per quale scoopo usarlo lo si trova qui https://superuser.com/questions/694501/what-does-mean-as-a-bash-script-function-parameter ).
+# Utilizzo
+Il comando da lanciare è
+
+```
+.\devStack_docker_compose.sh up -d
+```
+
+Nel caso si siano ridefinite alcune variabili globali come le porte, è opportuno ricreare le immagini lanciando lo stesso comando ma aggiungendo l'opzione __--build__.
+
+```
+.\devStack_docker_compose.sh up -d --build 
+```
+
+Lanciando il comando privo di opzioni si visualizzano le i valori delle variabili globali utilizzati.
+```
+./devstack_docker_compose.sh 
+
+Settings:
+ - Use default wwwroot: $DEVSTACK_WWWROOT=/home/matteo/Workspaces/PHPProjects
+ - Use default port: $DEVSTACK_PORT = 8084
+ - Use default port: $DEVSTACK_PHPFPM_PORT = 8999
+ - Use default port: $DEVSTACK_XDEBUG_PORT = 9000
+ - Use default port: $DEVSTACK_XDEBUG_IDEKEY=PHPSTORM
+Use default IP docker0: 172.17.0.1
+ - No DB
+Run '.\devstack_docker_compose up -d' or '.\devstack_docker_compose up -d --build' to run (and build) containers
+
+```
+
+|Variabile Globale | Default |Descrizione|
+|------------------|----|------------|
+|DEVSTACK_WWWROOT| $(pwd)/html  | percorso della "document root", path assoluta dove si trova il codice che verrà interpretato dal web server  |
+|DEVSTACK_PORT| 8082  | porta del sito web. Il sito web avrà il seguente indirizzo http://localhost:8082 |
+|DEVSTACK_PHPFPM_PORT| 8999| è la porta con la quale apache2 e php-fpm comunicano, TCP socket  |
+|DEVSTACK_XDEBUG_PORT|9000 | è la porta con la quale xdebug espone le informazioni per il debug |
+|DEVSTACK_XDEBUG_IDEKEY| PHPSTORM | è la id per l'identificazione delle sessione attiva dell'Xdebug |
+
+Nota: L'unica variabile che si dovrebbe avere l'esigenza di impostare è **DEVSTACK_WWWROOT**.
+Alcuni comandi comodi potrebbero essere: 
+```
+# export DEVSTACK_WWWROOT=<percorso progetti php>
+oppure 
+# export DEVSTACK_WWWROOT=$(echo $PHPP)
+```
+
+se nella percorso **\<percorso progetti php\>** o **$PHPP** abbiamo i nostri progetti ad esempio
+```
+tree -L 1
+.
+├── Librerie
+├── prova.php
+└── ProvaProgettoXXX1
+
+```
+Allora i nostri codici saranno visualizzabili ai seguenti indirizzi:
+```
+http:\\localhost:8082\Librerie
+http:\\localhost:8082\prova.php
+http:\\localhost:8082\ProvaProgettoXXX1
+```
+
+## Mailhog e PHPunit
+Nel percorso
+```
+http:\\localhost:8025
+```
+avremo l'applicazione di **Mailhog** che mostrerà le mail intercettate.
+All'interno del container del php è presente la libreria **PHPunit versione 8** (installata come phar) compatibile con php 7.2 fpm (percorso interno al container /usr/local/bin/phpunit). La libreria usata è anche se presente nel progetto(php-fpm/phpunitlibrary/phpunit-8.phar) è pero' scaricata da web. 
+
+
+# Realizzazione
+## Idea di partenza
+Nella versione dello stack creata dagli sviluppatori di Moodle (versione Moodle), nella *cartella bin/moodle-docker-compose* e' presente un insieme di condizioni che costruiscono la stringa finale con cui viene lanciato il docker-compose.
+
+Il risultato più interessante è che alla fine troviamo la linea di comando costruita con l'aggiunta dei parametri con cui è lanciato il mooodle-docker-compose ('$@': in questo indirizzo si trova un esempio per capire a cosa serve https://superuser.com/questions/694501/what-does-mean-as-a-bash-script-function-parameter ).
 
 La stringa di comando parte così:
 ~~~
