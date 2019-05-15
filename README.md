@@ -13,19 +13,19 @@ la 18.04) che contiene i seguenti software:
 Per avviare i container il comando da lanciare è
 
 ```
-.\devStack_docker_compose.sh up -d
+./devStack_docker_compose.sh up -d
 ```
 Per stoppare i container invece:
 
 ```
-.\devStack_docker_compose.sh down
+./devStack_docker_compose.sh down
 ```
 
 
 Nel caso si siano ridefinite alcune variabili globali come le porte, è opportuno ricreare le immagini lanciando lo stesso comando ma aggiungendo l'opzione __--build__.
 
 ```
-.\devStack_docker_compose.sh up -d --build 
+./devStack_docker_compose.sh up -d --build 
 ```
 
 Lanciando il comando privo di opzioni si visualizzano le i valori delle variabili globali utilizzati.
