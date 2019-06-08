@@ -21,38 +21,44 @@ echo 'Settings:'
 if [ -z "$DEVSTACK_WWWROOT" ];
 then
     export DEVSTACK_WWWROOT="$basedir/html"
+    messaggiodefault='Use default '
 fi
-echo " - Use default wwwroot: \$DEVSTACK_WWWROOT=${DEVSTACK_WWWROOT}"
+echo "$messaggiodefault - wwwroot: \$DEVSTACK_WWWROOT=${DEVSTACK_WWWROOT}"
 
 if [ -z "$DEVSTACK_PORT" ];
 then
     export DEVSTACK_PORT=8084
+    messaggiodefault='Use default '
 fi
-echo " - Use default port: \$DEVSTACK_PORT = 8084"
+echo "$messaggiodefault port: \$DEVSTACK_PORT = 8084"
 
 if [ -z "$DEVSTACK_PHPFPM_PORT" ];
 then
     export DEVSTACK_PHPFPM_PORT=8999
+    messaggiodefault='Use default '
 fi
-echo " - Use default port: \$DEVSTACK_PHPFPM_PORT = 8999"
+echo "$messaggiodefault port: \$DEVSTACK_PHPFPM_PORT = 8999"
 
 if [ -z "$DEVSTACK_XDEBUG_PORT" ];
 then
     export DEVSTACK_XDEBUG_PORT=9000
+    messaggiodefault='Use default '
 fi
-echo " - Use default port: \$DEVSTACK_XDEBUG_PORT = 9000"
+echo "$messaggiodefault port: \$DEVSTACK_XDEBUG_PORT = 9000"
 
 if [ -z "${DEVSTACK_XDEBUG_IDEKEY}" ];
 then
     export DEVSTACK_XDEBUG_IDEKEY=PHPSTORM
+    messaggiodefault='Use default '
 fi
-echo " - Use default port: \$DEVSTACK_XDEBUG_IDEKEY=PHPSTORM"
+echo "$messaggiodefault port: \$DEVSTACK_XDEBUG_IDEKEY=PHPSTORM"
 
 export DEVSTACK_XDEBUG_REMOTEIP=$(ip -4 addr show docker0 | grep -Po 'inet \K[\d.]+')
 echo "Use default IP docker0: ${DEVSTACK_XDEBUG_REMOTEIP}"
 if [ -z "$DEVSTACK_DB" ];
 then
-    echo " - No DB"
+    messaggiodefault='Use default '
+    echo "$messaggiodefault DB mysql"
 fi
 
 
