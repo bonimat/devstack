@@ -26,10 +26,4 @@ services:
     container_name: php7.2-fpm
     volumes:
       - "${DEVSTACK_WWWROOT}:/var/www/html"
-  #php-cli:
-  #  container_name: php7.2-cli
-  #  restart: always 
-  #  build: 
-  #    context: ./php-cli
-  #  volumes:
-  #    - "${DEVSTACK_WWWROOT}:/var/www/html"  
+ 
