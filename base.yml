@@ -26,4 +26,14 @@ services:
     container_name: php7.2-fpm
     volumes:
       - "${DEVSTACK_WWWROOT}:/var/www/html"
+  db:
+    image: mysql:5
+    command: >
+                --character-set-server=utf8mb4
+                --collation-server=utf8mb4_bin
+                --innodb_file_format=barracuda
+                --innodb_file_per_table=On
+                --innodb_large_prefix=On
+    environment:
+      MYSQL_ROOT_PASSWORD: "bonimat"
  
