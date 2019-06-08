@@ -30,17 +30,19 @@ Nel caso si siano ridefinite alcune variabili globali come le porte, è opportun
 
 Lanciando il comando privo di opzioni si visualizzano le i valori delle variabili globali utilizzati.
 ```
-./devstack_docker_compose.sh 
-
+ ./devstack_docker_compose.sh up -d --build
 Settings:
- - Use default wwwroot: $DEVSTACK_WWWROOT=/home/matteo/Workspaces/PHPProjects
- - Use default port: $DEVSTACK_PORT = 8084
- - Use default port: $DEVSTACK_PHPFPM_PORT = 8999
- - Use default port: $DEVSTACK_XDEBUG_PORT = 9000
- - Use default port: $DEVSTACK_XDEBUG_IDEKEY=PHPSTORM
+Use default  - wwwroot: $DEVSTACK_WWWROOT=/home/matteo/Workspace/DockerProjects/devStack/html
+Use default  port: $DEVSTACK_PORT = 8084
+Use default  port: $DEVSTACK_PHPFPM_PORT = 8999
+Use default  port: $DEVSTACK_XDEBUG_PORT = 9000
+Use default  port: $DEVSTACK_XDEBUG_IDEKEY=PHPSTORM
 Use default IP docker0: 172.17.0.1
- - No DB
-Run '.\devstack_docker_compose up -d' or '.\devstack_docker_compose up -d --build' to run (and build) containers
+Use default  db: mysql(to connect with adminer use username:root, db:mysql)
+To get IP for connection use: docker inspect devstack_db_1 |grep IPAddress
+-f /home/matteo/Workspace/DockerProjects/devStack/db/db.mysql.yml
+Use default  port: $DEVSTACK_ADMINER_PORT=8090
+docker-compose -f /home/matteo/Workspace/DockerProjects/devStack/base.yml  -f /home/matteo/Workspace/DockerProjects/devStack/db/db.mysql.yml -f /home/matteo/Workspace/DockerProjects/devStack/db/adminer.yml -f /home/matteo/Workspace/DockerProjects/devStack/mailhog/service.mail.yml up -d --build
 
 ```
 
@@ -48,9 +50,11 @@ Run '.\devstack_docker_compose up -d' or '.\devstack_docker_compose up -d --buil
 |------------------|----|------------|
 |DEVSTACK_WWWROOT| $(pwd)/html  | percorso della "document root", path assoluta dove si trova il codice che verrà interpretato dal web server  |
 |DEVSTACK_PORT| 8082  | porta del sito web. Il sito web avrà il seguente indirizzo http://localhost:8082 |
-|DEVSTACK_PHPFPM_PORT| 8999| è la porta con la quale apache2 e php-fpm comunicano, TCP socket  |
-|DEVSTACK_XDEBUG_PORT|9000 | è la porta con la quale xdebug espone le informazioni per il debug |
+|DEVSTACK_PHPFPM_PORT| 8999 | è la porta con la quale apache2 e php-fpm comunicano, TCP socket  |
+|DEVSTACK_XDEBUG_PORT| 9000 | è la porta con la quale xdebug espone le informazioni per il debug |
 |DEVSTACK_XDEBUG_IDEKEY| PHPSTORM | è la id per l'identificazione delle sessione attiva dell'Xdebug |
+|DEVSTACK_ADMINER_PORT| 8090 | è la porta per accedere al client web per la gestione dei DB
+|DEVSTACK_DB|empty| cambiare con 'pgsql' per utilizzare  PostGres (pgsql) anziché Mysql | 
 
 Nota: L'unica variabile che si dovrebbe avere l'esigenza di impostare è **DEVSTACK_WWWROOT**.
 Alcuni comandi comodi potrebbero essere: 
@@ -118,7 +122,7 @@ es.
 Le porte utilizzata internamente è la 9000 (attenzione alla direttiva che fa comunicare fpm con apache2: ho trovato un post (https://stackoverflow.com/questions/41306112/why-cant-apache-communicate-with-php-fpm-in-separate-containers-using-docker-de) che spiega come la comunicazione per socket tcp deve essere trasmessa usando il servizio 'php' che la Docker network associa come nome DNS e non usando l'indirizzo 127.0.0.1 perché indirizzo di rete locale. Il php è apache2 non risiedono su un host comune con docker, ma sono servizi isolati).
 Le porte esposte per default sono la **8082** per l'http e la **8445** per https.
 Le porte per l'utilizzo di **mailhog** sono **8025** e la **1025**.
-
+Le porta per accedere al client db **Adminer** è **8090** 
 
 
 # Comandi Utili
