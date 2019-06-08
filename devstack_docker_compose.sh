@@ -64,7 +64,11 @@ dockercompose="docker-compose -f ${basedir}/base.yml"
 export DEVSTACK_CONFMAILHOG="$basedir/mailhog/conf"
 dockercompose="$dockercompose -f ${basedir}/mailhog/service.mail.yml"
 
-
-# Finale
-echo "$dockercompose $@"
-$dockercompose $@
+ #!/bin/bash
+ if [ "$#" -eq  "0" ]
+   then
+     echo "Run '.\\devstack_docker_compose up -d' or '.\\devstack_docker_compose up -d --build' to run (and build) containers"
+ else
+    echo "$dockercompose $@"
+    $dockercompose $@ 
+fi
