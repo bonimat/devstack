@@ -55,20 +55,22 @@ echo "${messaggiodefault} port: \$DEVSTACK_XDEBUG_IDEKEY=PHPSTORM"
 
 export DEVSTACK_XDEBUG_REMOTEIP=$(ip -4 addr show docker0 | grep -Po 'inet \K[\d.]+')
 echo "Use default IP docker0: ${DEVSTACK_XDEBUG_REMOTEIP}"
+
 if [ -z "$DEVSTACK_DB" ];
 then
     messaggiodefault='Use default '
-    echo "${messaggiodefault} db: mysql"
+    echo "${messaggiodefault} db: mysql(to connect with adminer use username:root, db:mysql)"
     echo "To get IP for connection use: docker inspect devstack_db_1 |grep IPAddress"
     dockercompose="${dockercompose} -f ${basedir}/db/db.mysql.yml"
 fi
-if [ "$DEVSTACK_DB" == 'pgsql' ];
+echo $dockercompose
+if [ "$DEVSTACK_DB" = 'pgsql' ];
 then
-    echo "${messaggiodefault} db: pgsql"
+    echo "${messaggiodefault} db: pgsql(to connect with adminer use username:postgres, db empty)"
     echo "To get IP for connection use: docker inspect devstack_db_1 |grep IPAddress"
     dockercompose="${dockercompose} -f ${basedir}/db/db.${DEVSTACK_DB}.yml"
-
 fi
+
 if [ -z "${DEVSTACK_ADMINER_PORT}" ];
 then
     export DEVSTACK_ADMINER_PORT=8090
@@ -78,7 +80,7 @@ dockercompose="${dockercompose} -f ${basedir}/db/adminer.yml"
 echo "${messaggiodefault} port: \$DEVSTACK_ADMINER_PORT=8090"
 
 
-dockercompose="docker-compose -f ${basedir}/base.yml"
+dockercompose="docker-compose -f ${basedir}/base.yml ${dockercompose}"
 
 # Mailhog service
 export DEVSTACK_CONFMAILHOG="${basedir}/mailhog/conf"
@@ -89,6 +91,6 @@ dockercompose="${dockercompose} -f ${basedir}/mailhog/service.mail.yml"
    then
      echo "Run '.\\devstack_docker_compose up -d' or '.\\devstack_docker_compose up -d --build' to run (and build) containers"
  else
-    echo "$dockercompose $@"
+    echo "${dockercompose} $@"
     $dockercompose $@ 
 fi
