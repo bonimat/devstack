@@ -2,8 +2,8 @@
 version: "2"
 services:
   adminer:
-    image: dockette/adminer:full-php5
-    container_name:ds_adminer
+    image: dockette/adminer:full
+    container_name: ds_adminer
     restart: always
     ports:
-      - ${DEVSTACK_ADMINER_PORT}:8080
+      - ${DEVSTACK_ADMINER_PORT}:80
