@@ -2,10 +2,10 @@ version: '2'
 
 services:
   apache:
-    container_name: apache2
     environment:
       - PHPFPM_PORT=${DEVSTACK_PHPFPM_PORT}
     build: ./apache
+    container_name: ds_apache2
     ports:
       - '8082:80'
       - '8445:443'
@@ -14,7 +14,6 @@ services:
     links:
       - php-fpm
   php-fpm:
-    container_name: php7.2-fpm
     environment:
       - PHPFPM_PORT=${DEVSTACK_PHPFPM_PORT}
       - XDEBUG_PORT=${DEVSTACK_XDEBUG_PORT}
@@ -23,17 +22,8 @@ services:
       args:
         XDEBUG_REMOTEIP : "${DEVSTACK_XDEBUG_REMOTEIP}"
         XDEBUG_IDEKEY : "${DEVSTACK_XDEBUG_IDEKEY}"
-    container_name: php7.2-fpm
+    container_name: ds_php7.2-fpm
     volumes:
       - "${DEVSTACK_WWWROOT}:/var/www/html"
-  db:
-    image: mysql:5
-    command: >
-                --character-set-server=utf8mb4
-                --collation-server=utf8mb4_bin
-                --innodb_file_format=barracuda
-                --innodb_file_per_table=On
-                --innodb_large_prefix=On
-    environment:
-      MYSQL_ROOT_PASSWORD: "bonimat"
+
  

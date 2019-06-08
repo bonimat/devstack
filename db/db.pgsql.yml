@@ -1,0 +1,9 @@
+version: "2"
+services:
+  db:
+    image: postgres:9.6.7
+    container_name: ds_pssql
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "bonimat"
+      
