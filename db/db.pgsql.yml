@@ -1,9 +1,13 @@
 version: "2"
 services:
   db:
-    image: postgres:9.6.7
+    image: postgres
     container_name: ds_pgsql
     restart: always
     environment:
-      POSTGRES_PASSWORD: "bonimat"
-      
+      POSTGRES_USER: matteo
+      POSTGRES_PASSWORD: bonimat
+      POSTGRES_DB: pgdb
+      PGDATA: $DS_PGDATA
+    ports:
+      - 5432:5432

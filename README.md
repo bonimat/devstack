@@ -88,6 +88,10 @@ http:\\localhost:8025
 avremo l'applicazione di **Mailhog** che mostrerà le mail intercettate.
 All'interno del container del php è presente la libreria **PHPunit versione 8** (installata come phar) compatibile con php 7.2 fpm (percorso interno al container /usr/local/bin/phpunit). La libreria usata è anche se presente nel progetto(php-fpm/phpunitlibrary/phpunit-8.phar) è pero' scaricata da web. 
 
+# PostGres
+```
+docker exec -ti ds_pgsql psql -U matteo pgdb
+```
 
 # Realizzazione
 ## Idea di partenza
