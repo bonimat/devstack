@@ -1,0 +1,14 @@
+version: "2"
+services:
+  db:
+    image: postgres
+    container_name: ds_pgsql
+    restart: always
+    environment:
+      POSTGRES_USER: matteo
+      POSTGRES_PASSWORD: bonimat
+      POSTGRES_DB: pgdb
+    ports:
+      - 5432:5432
+    volumes:
+      - $DS_PGDATA:/var/lib/postgresql/data

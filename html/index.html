@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<title> devStack: pagina index.php</title>
+	</head>
+	<body>
+		<h1>Ambiente DESTACK: APACHE2-PHP7.2-PHPUNIT8-XDEBUG </h1>
+		<p>Ciao,<br /> 
+		l'ambiente di sviluppo ha caricato il web server Apache.<br />
+		La cartella <strong>html/</strong> che contiene questo file index.html &eacute; nella path del progetto docker.<br />
+		Per cambiarla deve essere rilanciato l'ambiente dopo aver impostato 
+		la variabile globale $DEVSTACK_WWWROOT col comando:<br />
+		</p>
+		<code>
+		export DEVSTACK_WWWROOT="PATH" <br />
+		</code>
+		<p>oppure</p>
+		<code>
+		export DEVSTACK_WWWROOT=(echo $PHPP)
+		</code>
+		<p>
+		nel caso sia definita una variabile di sistema che contiene il percorso 
+		dei progetti php.
+		</p>
+	</body>
+</html>
