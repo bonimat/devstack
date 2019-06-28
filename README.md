@@ -90,8 +90,22 @@ All'interno del container del php è presente la libreria **PHPunit versione 8**
 
 # PostGres
 ```
+export DEVSTACK_DB=pgsql
+
+export DS_PGDATA=$(pwd)/pgdata
+
 docker exec -ti ds_pgsql psql -U matteo pgdb
+
 ```
+Per accedere da web:
+```
+Sistema: PostrgesSQL	
+Server: db	
+Utente: matteo	
+Password: bonimat
+Database: pgdb
+```
+
 
 # Realizzazione
 ## Idea di partenza
