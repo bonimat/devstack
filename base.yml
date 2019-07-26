@@ -11,7 +11,7 @@ services:
       - '8445:443'
     volumes:
       - "${DEVSTACK_WWWROOT}:/var/www/html"
-      - "data:/data"
+      - "./data:/data"
     links:
       - php-fpm
   php-fpm:
@@ -26,6 +26,5 @@ services:
     container_name: ds_php7.2-fpm
     volumes:
       - "${DEVSTACK_WWWROOT}:/var/www/html"
-      - "data:/data"
-
- 
+      - "./data:/data" 
+      - "./php-fpm/setup:/setup"
