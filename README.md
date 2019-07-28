@@ -112,6 +112,8 @@ Dichiarare le variabili:
 cd $DOCKER/devstack
 export DEVSTACK_DB=pgsql
 export DS_PGDATA=/home/matteo/Workspaces/Supporto/DatabaseDiSviluppo/pgdata
+export DEVSTACK_WWWROOT=$(echo $PHPP)
+
 ./devstack_docker_compose.sh up -d
 ```
 

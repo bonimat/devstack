@@ -17,6 +17,14 @@ basedir="$( cd -P "$( dirname "$SOURCE" )/" && pwd )"
 
 echo 'Settings:'
 
+#Impostazioni di default
+fileconf=${basedir}/config.sh 
+if [ -f $fileconf ];
+then
+    echo 'Execute config.sh'
+    source ./config.sh
+fi
+
 # Controllo varibiali di ambiente:
 if [ -z "$DEVSTACK_WWWROOT" ];
 then
@@ -70,8 +78,7 @@ then
     echo "To get IP for connection use: docker inspect devstack_db_1 |grep IPAddress"
     dockercompose="${dockercompose} -f ${basedir}/db/db.${DEVSTACK_DB}.yml"
 fi
-#echo $(pwd)/pgdata
-#export DS_PGDATA=$(pwd)/pgdata
+ 
 if [ -z "${DEVSTACK_ADMINER_PORT}" ];
 then
     export DEVSTACK_ADMINER_PORT=8090
