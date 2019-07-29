@@ -2,6 +2,11 @@
 
 set -e
 
+# resetti i valori
+unset DEVSTACK_DB
+unset DS_PGDATA
+unset DEVSTACK_WWWROOT
+
 # Settaggi di configurazione
 export DEVSTACK_DB=pgsql
 export DS_PGDATA="/home/matteo/Workspaces/Supporto/DatabaseDiSviluppo/pgdata"
