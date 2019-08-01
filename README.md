@@ -31,6 +31,7 @@ Nel caso si siano ridefinite alcune variabili globali come le porte, è opportun
 Lanciando il comando privo di opzioni si visualizzano le i valori delle variabili globali utilizzati.
 ```
  ./devstack_docker_compose.sh up -d --build
+
 Settings:
 Use default  - wwwroot: $DEVSTACK_WWWROOT=/home/matteo/Workspace/DockerProjects/devStack/html
 Use default  port: $DEVSTACK_PORT = 8084
@@ -88,7 +89,7 @@ http:\\localhost:8025
 avremo l'applicazione di **Mailhog** che mostrerà le mail intercettate.
 All'interno del container del php è presente la libreria **PHPunit versione 8** (installata come phar) compatibile con php 7.2 fpm (percorso interno al container /usr/local/bin/phpunit). La libreria usata è anche se presente nel progetto(php-fpm/phpunitlibrary/phpunit-8.phar) è pero' scaricata da web. 
 
-# PostGres 
+# Postgres 
 ## In generale
 ```
 export DEVSTACK_DB=pgsql
@@ -116,6 +117,25 @@ export DEVSTACK_WWWROOT=$(echo $PHPP)
 
 ./devstack_docker_compose.sh up -d
 ```
+## Soluzione di alcuni problemi
+Alla avvio del container assicurarsi di avere la cartella dei dati del db (DS_PGDATA) **VUOTA** altrimenti il container rimane in uno stato di continuo restarting.
+
+# Debug
+Nel caso alcuni container abbiano dei problemi si possono usare alcuni utili comandi.
+Per accedere dentro il container :
+```
+docker exec -it <nome del container > /bin/bash
+```
+
+Oppure più in generale per sapere i log del container:
+
+```
+docker logs <nome del container>
+```
+
+
+
+
 
 
 # Realizzazione
