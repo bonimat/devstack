@@ -80,6 +80,14 @@ http:\\localhost:8082\Librerie
 http:\\localhost:8082\prova.php
 http:\\localhost:8082\ProvaProgettoXXX1
 ```
+## Cartella data
+
+La cartella del progetto **./data** può essere utilizzata come cartella share. I permessi di scrittura devono essere impostati esternamente.
+Il suo percorso all'interno dei container apache2 e php7.2-fpm è
+```
+data:/data/moodledata/iol_local-data
+```
+
 
 ## Mailhog e PHPunit
 Nel percorso
