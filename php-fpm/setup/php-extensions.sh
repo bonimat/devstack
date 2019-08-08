@@ -16,7 +16,7 @@ PACKAGES_POSTGRES="libpq5"
 PACKAGES_MYMARIA="libmariadbclient18"
 
 # Packages for other Moodle runtime dependenices.
-PACKAGES_RUNTIME="ghostscript libaio1 libcurl3 libgss3 libicu57 libmcrypt-dev libxml2 libxslt1.1 \
+PACKAGES_RUNTIME="ghostscript libaio1 libgss3 libmcrypt-dev libxml2 libxslt1.1 \
   libzip-dev locales sassc unixodbc unzip zip"
 
 # Packages for Memcached.
