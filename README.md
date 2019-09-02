@@ -1,13 +1,47 @@
 # devStack: Stack per lo sviluppo web by bonimat
 Partendo dall'idea avuti dagli sviluppatori di Moodle che hanno realizzato uno stack configurabile, 
 questo progetto dovrebbe creare un stack simile ma più simile alla nostra infrastruttura.
-Iniziamente l'interessa è avere uno stack basato su kernel Ubuntu (l'attuale release sul campo è
-la 18.04) che contiene i seguenti software:
+Lo stack si basa su kernel Ubuntu (release di partenza è
+la 18.04) e da la possibilità di utilizzare i seguenti software:
 
 - apache2 (ver 2.4)
 - php fpm (ver 7.2)
-- mailhog(ver)
-- database (mysql/psql/oracle) (incoming)
+- mailhog 
+- adminer (gestore web per i DB)
+- database (mysql/psql/oracle) (under construction)
+- jenkins
+# Configurazione 
+Lo stack può essere avviato tramite semplice comando basato sul docker-compose dopo avere inizializzato alcune variabili globali come 
+indicato nella sezione "Utilizzo".
+Per semplificare la configurazioni più elaborate si puo' utilizzare il file config.sh (se nn esiste si puo' creare) in cui inizializzare correttamente(unset e poi export) le variabili globali che servono.
+La descrizione delle è presente nella tabella 
+
+Esempio di file **config.sh** :
+```
+#!/usr/bin/env bash
+
+set -e
+
+# resetti i valori
+unset DEVSTACK_DB
+unset DS_PGDATA
+unset DEVSTACK_WWWROOT
+unset DEVSTACK_JENKINS_HOME
+unset DEVSTACK_JENKINS_PORT
+
+# Settaggi di configurazione
+export DEVSTACK_DB=pgsql
+export DS_PGDATA="/home/matteo/Workspaces/Supporto/DatabaseDiSviluppo/pgdata"
+export DEVSTACK_WWWROOT=$(echo $PHPP)
+export DEVSTACK_JENKINS_HOME="/home/matteo/Workspaces/JenkinsProjects"
+#export DEVSTACK_JENKINS_PORT="18080"
+
+# Visualizzazione dei settaggi
+echo $DEVSTACK_DB
+echo $DS_PGDATA
+echo $DEVSTACK_WWWROOT
+```
+
 
 # Utilizzo
 Per avviare i container il comando da lanciare è
@@ -55,8 +89,10 @@ docker-compose -f /home/matteo/Workspace/DockerProjects/devStack/base.yml  -f /h
 |DEVSTACK_XDEBUG_PORT| 9000 | è la porta con la quale xdebug espone le informazioni per il debug |
 |DEVSTACK_XDEBUG_IDEKEY| PHPSTORM | è la id per l'identificazione delle sessione attiva dell'Xdebug |
 |DEVSTACK_ADMINER_PORT| 8090 | è la porta per accedere al client web per la gestione dei DB
-|DEVSTACK_DB|empty| cambiare con 'pgsql' per utilizzare  PostGres (pgsql) anziché Mysql | 
-
+|DEVSTACK_DB|empty| cambiare con 'pgsql' per utilizzare  PostGres (pgsql) anziché Mysql |
+|DS_PGDATA| export DS_PGDATA="/home/matteo/Workspaces/Supporto/DatabaseDiSviluppo/pgdata"| Nel caso il db fosse postgress|
+|DEVSTACK_JENKINS_HOME| empty| contiente il percorso condiviso di jenskins (jenkins_home)| [VariabiliGlobali]
+|DEVSTACK_JENKINS_PORT| 8080| porta su a cui accedere per raggiungere il servizio|
 Nota: L'unica variabile che si dovrebbe avere l'esigenza di impostare è **DEVSTACK_WWWROOT**.
 Alcuni comandi comodi potrebbero essere: 
 ```
