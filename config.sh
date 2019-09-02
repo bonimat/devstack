@@ -17,6 +17,8 @@ export DEVSTACK_JENKINS_HOME="/home/matteo/Workspaces/JenkinsProjects"
 #export DEVSTACK_JENKINS_PORT="18080"
 
 # Visualizzazione dei settaggi
-echo $DEVSTACK_DB
-echo $DS_PGDATA
-echo $DEVSTACK_WWWROOT
+echo "DB: $DEVSTACK_DB"
+echo "DATA DB: $DS_PGDATA"
+echo "Web: $DEVSTACK_WWWROOT"
+echo "Jenkins: $DEVSTACK_JENKINS_HOME"
+echo "Jenkins port:$DEVSTACK_JENKINS_PORT"

@@ -22,7 +22,7 @@ fileconf=${basedir}/config.sh
 if [ -f $fileconf ];
 then
     echo 'Execute config.sh'
-    source ./config.sh
+    source "$(pwd)/config.sh"
 fi
 
 # Controllo varibiali di ambiente:
@@ -64,6 +64,7 @@ echo "${messaggiodefault} port: \$DEVSTACK_XDEBUG_IDEKEY=PHPSTORM"
 export DEVSTACK_XDEBUG_REMOTEIP=$(ip -4 addr show docker0 | grep -Po 'inet \K[\d.]+')
 echo "Use default IP docker0: ${DEVSTACK_XDEBUG_REMOTEIP}"
 
+# Database service
 if [ -z "$DEVSTACK_DB" ];
 then
     messaggiodefault='Use default '
@@ -71,14 +72,20 @@ then
     echo "To get IP for connection use: docker inspect devstack_db_1 |grep IPAddress"
     dockercompose="${dockercompose} -f ${basedir}/db/db.mysql.yml"
 fi
-echo $dockercompose
+
 if [ "$DEVSTACK_DB" = 'pgsql' ];
 then
+    if [ -z "$DS_PGDATA" ];
+    then
+        export DS_PGDATA="$(pwd)/pgdata"
+        echo "Postgress Data: ${DS_PGDATA}"
+    fi
     echo "${messaggiodefault} db: pgsql(to connect with adminer use username:postgres, db empty)"
     echo "To get IP for connection use: docker inspect devstack_db_1 |grep IPAddress"
     dockercompose="${dockercompose} -f ${basedir}/db/db.${DEVSTACK_DB}.yml"
 fi
- 
+
+# Adminer service
 if [ -z "${DEVSTACK_ADMINER_PORT}" ];
 then
     export DEVSTACK_ADMINER_PORT=8090
@@ -93,6 +100,18 @@ dockercompose="docker-compose -f ${basedir}/base.yml ${dockercompose}"
 # Mailhog service
 export DEVSTACK_CONFMAILHOG="${basedir}/mailhog/conf"
 dockercompose="${dockercompose} -f ${basedir}/mailhog/service.mail.yml"
+
+# JeNkins service
+if [ ! -z "$DEVSTACK_JENKINS_HOME" ];
+then
+    if [ -z "$DEVSTACK_JENKINS_PORT" ];
+    then
+        export DEVSTACK_JENKINS_PORT='8080'
+    fi
+
+    echo "Enable Jenkins service on port $DEVSTACK_JENKINS_PORT"
+    dockercompose="${dockercompose} -f ${basedir}/jenkins/jenkins.yml"
+fi
 
  #!/bin/bash
  if [ "$#" -eq  "0" ]

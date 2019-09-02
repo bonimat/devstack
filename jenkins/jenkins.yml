@@ -1,5 +1,7 @@
-jenkins:
-     container_name: jenkins
+version: '2'
+services:
+  jenkins:
+     container_name: ds_jenkins
      image: jenkins:latest
      #build:
      #context: .
