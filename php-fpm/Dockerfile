@@ -22,5 +22,5 @@ RUN apt-get update \
     && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_host=${XDEBUG_REMOTEIP}">> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.idekey=${XDEBUG_IDEKEY}">> /usr/local/etc/php/conf.d/xdebug.ini
-RUN curl -L -o /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-8.phar
+RUN curl -L -o /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-7.5.phar
 RUN chmod +x /usr/local/bin/phpunit
