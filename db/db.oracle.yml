@@ -1,0 +1,11 @@
+version: "2"
+services:
+  db:
+    build: ./db/oracle-xe 
+    container_name: ds_oracle
+    restart: always
+    ports:
+      - 32118:1521
+      - 35518:5500
+    volumes:
+      - $DEVSTACK_ORACLE_DATA:/opt/oracle/oradata

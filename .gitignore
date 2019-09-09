@@ -3,3 +3,4 @@ pgdata/*
 !pgdata/README.txt
 data/*
 !data/README.txt
+config.sh
