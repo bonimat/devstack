@@ -80,10 +80,24 @@ then
         export DS_PGDATA="$(pwd)/pgdata"
         echo "Postgress Data: ${DS_PGDATA}"
     fi
-    echo "${messaggiodefault} db: pgsql(to connect with adminer use username:postgres, db empty)"
+    echo "${messaggiodefault} db: ${DEVSTACK_DB} (to connect with adminer use username:postgres, db empty)"
     echo "To get IP for connection use: docker inspect devstack_db_1 |grep IPAddress"
     dockercompose="${dockercompose} -f ${basedir}/db/db.${DEVSTACK_DB}.yml"
 fi
+
+if [ "$DEVSTACK_DB" = 'oracle' ];
+then
+    if [ -z "$DEVSTACK_ORACLE_DATA" ];
+    then
+        export DEVSTACK_ORACLE_DATA="$(pwd)/oracle_data"
+        echo "Oracle Data: ${DEVSTACK_ORACLE_DATA}"
+    fi
+    echo "${messaggiodefault} db: ${DEVSTACK_DB} (to connect with adminer use username:???, db empty)"
+    echo "To get IP for connection use: docker inspect devstack_db_1 |grep IPAddress"
+    dockercompose="${dockercompose} -f ${basedir}/db/db.${DEVSTACK_DB}.yml"
+fi
+
+
 
 # Adminer service
 if [ -z "${DEVSTACK_ADMINER_PORT}" ];
