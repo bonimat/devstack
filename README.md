@@ -1,4 +1,4 @@
-# devStack: Stack per lo sviluppo web by bonimat
+# devstack: Stack per lo sviluppo web by bonimat
 Partendo dall'idea avuti dagli sviluppatori di Moodle che hanno realizzato uno stack configurabile, 
 questo progetto dovrebbe creare un stack simile ma più simile alla nostra infrastruttura.
 Lo stack si basa su kernel Ubuntu (release di partenza è
@@ -23,23 +23,23 @@ Esempio di file **config.sh** :
 set -e
 
 # resetti i valori
-unset DEVSTACK_DB
+unset devstack_DB
 unset DS_PGDATA
-unset DEVSTACK_WWWROOT
-unset DEVSTACK_JENKINS_HOME
-unset DEVSTACK_JENKINS_PORT
+unset devstack_WWWROOT
+unset devstack_JENKINS_HOME
+unset devstack_JENKINS_PORT
 
 # Settaggi di configurazione
-export DEVSTACK_DB=pgsql
-export DS_PGDATA="/home/matteo/Workspaces/Supporto/DatabaseDiSviluppo/pgdata"
-export DEVSTACK_WWWROOT=$(echo $PHPP)
-export DEVSTACK_JENKINS_HOME="/home/matteo/Workspaces/JenkinsProjects"
-#export DEVSTACK_JENKINS_PORT="18080"
+export devstack_DB=pgsql
+export DS_PGDATA="<workspace dir>/Supporto/DatabaseDiSviluppo/pgdata"
+export devstack_WWWROOT=$(echo $PHPP)
+export devstack_JENKINS_HOME="<workspace dir>/JenkinsProjects"
+#export devstack_JENKINS_PORT="18080"
 
 # Visualizzazione dei settaggi
-echo $DEVSTACK_DB
+echo $devstack_DB
 echo $DS_PGDATA
-echo $DEVSTACK_WWWROOT
+echo $devstack_WWWROOT
 ```
 
 
@@ -47,19 +47,19 @@ echo $DEVSTACK_WWWROOT
 Per avviare i container il comando da lanciare è
 
 ```
-./devStack_docker_compose.sh up -d
+./devstack_docker_compose.sh up -d
 ```
 Per stoppare i container invece:
 
 ```
-./devStack_docker_compose.sh down
+./devstack_docker_compose.sh down
 ```
 
 
 Nel caso si siano ridefinite alcune variabili globali come le porte, è opportuno ricreare le immagini lanciando lo stesso comando ma aggiungendo l'opzione __--build__.
 
 ```
-./devStack_docker_compose.sh up -d --build 
+./devstack_docker_compose.sh up -d --build 
 ```
 
 Lanciando il comando privo di opzioni si visualizzano le i valori delle variabili globali utilizzati.
@@ -67,38 +67,38 @@ Lanciando il comando privo di opzioni si visualizzano le i valori delle variabil
  ./devstack_docker_compose.sh up -d --build
 
 Settings:
-Use default  - wwwroot: $DEVSTACK_WWWROOT=/home/matteo/Workspace/DockerProjects/devStack/html
-Use default  port: $DEVSTACK_PORT = 8084
-Use default  port: $DEVSTACK_PHPFPM_PORT = 8999
-Use default  port: $DEVSTACK_XDEBUG_PORT = 9000
-Use default  port: $DEVSTACK_XDEBUG_IDEKEY=PHPSTORM
+Use default  - wwwroot: $devstack_WWWROOT=/home/matteo/Workspace/DockerProjects/devstack/html
+Use default  port: $devstack_PORT = 8084
+Use default  port: $devstack_PHPFPM_PORT = 8999
+Use default  port: $devstack_XDEBUG_PORT = 9000
+Use default  port: $devstack_XDEBUG_IDEKEY=PHPSTORM
 Use default IP docker0: 172.17.0.1
 Use default  db: mysql(to connect with adminer use username:root, db:mysql)
 To get IP for connection use: docker inspect devstack_db_1 |grep IPAddress
--f /home/matteo/Workspace/DockerProjects/devStack/db/db.mysql.yml
-Use default  port: $DEVSTACK_ADMINER_PORT=8090
-docker-compose -f /home/matteo/Workspace/DockerProjects/devStack/base.yml  -f /home/matteo/Workspace/DockerProjects/devStack/db/db.mysql.yml -f /home/matteo/Workspace/DockerProjects/devStack/db/adminer.yml -f /home/matteo/Workspace/DockerProjects/devStack/mailhog/service.mail.yml up -d --build
+-f /home/matteo/Workspace/DockerProjects/devstack/db/db.mysql.yml
+Use default  port: $devstack_ADMINER_PORT=8090
+docker-compose -f /home/matteo/Workspace/DockerProjects/devstack/base.yml  -f /home/matteo/Workspace/DockerProjects/devstack/db/db.mysql.yml -f /home/matteo/Workspace/DockerProjects/devstack/db/adminer.yml -f /home/matteo/Workspace/DockerProjects/devstack/mailhog/service.mail.yml up -d --build
 
 ```
 
 |Variabile Globale | Default |Descrizione|
 |------------------|----|------------|
-|DEVSTACK_WWWROOT| $(pwd)/html  | percorso della "document root", path assoluta dove si trova il codice che verrà interpretato dal web server  |
-|DEVSTACK_PORT| 8082  | porta del sito web. Il sito web avrà il seguente indirizzo http://localhost:8082 |
-|DEVSTACK_PHPFPM_PORT| 8999 | è la porta con la quale apache2 e php-fpm comunicano, TCP socket  |
-|DEVSTACK_XDEBUG_PORT| 9000 | è la porta con la quale xdebug espone le informazioni per il debug |
-|DEVSTACK_XDEBUG_IDEKEY| PHPSTORM | è la id per l'identificazione delle sessione attiva dell'Xdebug |
-|DEVSTACK_ADMINER_PORT| 8090 | è la porta per accedere al client web per la gestione dei DB
-|DEVSTACK_DB|empty| cambiare con 'pgsql' per utilizzare  PostGres (pgsql) anziché Mysql |
-|DS_PGDATA| export DS_PGDATA="/home/matteo/Workspaces/Supporto/DatabaseDiSviluppo/pgdata"| Nel caso il db fosse postgress|
-|DEVSTACK_JENKINS_HOME| empty| contiente il percorso condiviso di jenskins (jenkins_home)| [VariabiliGlobali]
-|DEVSTACK_JENKINS_PORT| 8080| porta su a cui accedere per raggiungere il servizio|
-Nota: L'unica variabile che si dovrebbe avere l'esigenza di impostare è **DEVSTACK_WWWROOT**.
+|devstack_WWWROOT| $(pwd)/html  | percorso della "document root", path assoluta dove si trova il codice che verrà interpretato dal web server  |
+|devstack_PORT| 8082  | porta del sito web. Il sito web avrà il seguente indirizzo http://localhost:8082 |
+|devstack_PHPFPM_PORT| 8999 | è la porta con la quale apache2 e php-fpm comunicano, TCP socket  |
+|devstack_XDEBUG_PORT| 9000 | è la porta con la quale xdebug espone le informazioni per il debug |
+|devstack_XDEBUG_IDEKEY| PHPSTORM | è la id per l'identificazione delle sessione attiva dell'Xdebug |
+|devstack_ADMINER_PORT| 8090 | è la porta per accedere al client web per la gestione dei DB
+|devstack_DB|empty| cambiare con 'pgsql' per utilizzare  PostGres (pgsql) anziché Mysql |
+|DS_PGDATA| "<workspace dir>/Supporto/DatabaseDiSviluppo/pgdata"| Nel caso il db fosse postgress|
+|devstack_JENKINS_HOME| empty| contiente il percorso condiviso di jenskins (jenkins_home)| [VariabiliGlobali]
+|devstack_JENKINS_PORT| 8080| porta su a cui accedere per raggiungere il servizio|
+Nota: L'unica variabile che si dovrebbe avere l'esigenza di impostare è **devstack_WWWROOT**.
 Alcuni comandi comodi potrebbero essere: 
 ```
-# export DEVSTACK_WWWROOT=<percorso progetti php>
+# export devstack_WWWROOT=<percorso progetti php>
 oppure 
-# export DEVSTACK_WWWROOT=$(echo $PHPP)
+# export devstack_WWWROOT=$(echo $PHPP)
 ```
 
 se nella percorso **\<percorso progetti php\>** o **$PHPP** abbiamo i nostri progetti ad esempio
@@ -136,7 +136,7 @@ All'interno del container del php è presente la libreria **PHPunit versione 8**
 # Postgres 
 ## In generale
 ```
-export DEVSTACK_DB=pgsql
+export devstack_DB=pgsql
 
 export DS_PGDATA=$(pwd)/pgdata
 
@@ -155,9 +155,9 @@ Database: pgdb
 Dichiarare le variabili:
 ```
 cd $DOCKER/devstack
-export DEVSTACK_DB=pgsql
-export DS_PGDATA=/home/matteo/Workspaces/Supporto/DatabaseDiSviluppo/pgdata
-export DEVSTACK_WWWROOT=$(echo $PHPP)
+export devstack_DB=pgsql
+export DS_PGDATA=<workspace dir>/Supporto/DatabaseDiSviluppo/pgdata
+export devstack_WWWROOT=$(echo $PHPP)
 
 ./devstack_docker_compose.sh up -d
 ```
@@ -198,16 +198,16 @@ Quindi per lanciare diversi parti di script da file è suffficiente scrivere un 
 
 Esempio:
 ~~~
-> docker-compose -f /home/matteo/Workspaces/DockerProjects/moodle-docker/base.yml -f /home/matteo/Workspaces/DockerProjects/moodle-docker/service.mail.yml -f /home/matteo/Workspaces/DockerProjects/moodle-docker/db.mysql.yml -f /home/matteo/Workspaces/DockerProjects/moodle-docker/webserver.port.yml up -d
+> docker-compose -f <workspace dir>/DockerProjects/moodle-docker/base.yml -f <workspace dir>/DockerProjects/moodle-docker/service.mail.yml -f <workspace dir>/DockerProjects/moodle-docker/db.mysql.yml -f <workspace dir>/DockerProjects/moodle-docker/webserver.port.yml up -d
 ~~~
 
 ## Operazioni preliminari
 ### Definire le variabili di ambiente:
 es.
 ~~~
-> export DEVSTACK_WWWROOT=$(pwd)/html
-> echo $DEVSTACK_WWWROOT 
-/home/matteo/Workspaces/DockerProjects/devStack/html
+> export devstack_WWWROOT=$(pwd)/html
+> echo $devstack_WWWROOT 
+<workspace dir>/DockerProjects/devstack/html
 ~~~
 
 
@@ -231,7 +231,7 @@ docker-compose -f base.yml up -d --build
 
    - dockerfile in apache che puo' creare un container con lo stesso risultato ma sulla porta 8082, ma personalizzato con kernel ubuntu e installazione di apache2:
 ~~~
-docker run -d -p 8082:80 -v $DEVSTACK_WWWROOT:/var/www/html --name app app
+docker run -d -p 8082:80 -v $devstack_WWWROOT:/var/www/html --name app app
 docker container stop app
 ~~~
 per rimuovere i container stoppati:
