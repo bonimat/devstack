@@ -39,6 +39,8 @@ apt-get install -y --no-install-recommends apt-transport-https \
 echo 'Generating locales..'
 echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen
 echo 'it_IT.UTF-8 UTF-8' >> /etc/locale.gen
+echo 'en_AU.UTF-8 UTF-8' >> /etc/locale.gen
+
 locale-gen
 
 echo "Installing php extensions"
