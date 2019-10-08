@@ -4,3 +4,4 @@ pgdata/*
 data/*
 !data/README.txt
 config.sh
+db/oracle-xe/files/*.rpm
