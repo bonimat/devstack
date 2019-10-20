@@ -2,7 +2,7 @@
 
 set -e
 
-echo "Downloading oracle files"
+echo "Unzip oracle files"
 
 unzip /tmp/instantclient-basic-linux.x64-*.zip -d /usr/local/
 rm /tmp/instantclient-basic-linux.x64-*.zip
@@ -14,7 +14,6 @@ unzip /tmp/instantclient-sdk-*.zip -d /usr/local/
 rm /tmp/instantclient-sdk-*.zip
 
 ln -s /usr/local/instantclient_19_3 /usr/local/instantclient
-# ln -s /usr/local/instantclient/libclntsh.so.19.1 /usr/local/instantclient/libclntsh.so
 ln -s /usr/local/instantclient/sqlplus /usr/bin/sqlplus
 
 
