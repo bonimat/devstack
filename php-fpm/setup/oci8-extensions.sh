@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -e
+
+echo "Downloading oracle files"
+
+unzip /tmp/instantclient-basic-linux.x64-*.zip -d /usr/local/
+rm /tmp/instantclient-basic-linux.x64-*.zip
+unzip /tmp/instantclient-sdk-linux.x64-*.zip -d /usr/local/
+rm /tmp/instantclient-sdk-linux.x64-*.zip
+unzip /tmp/instantclient-sqlplus-*.zip -d /usr/local/
+rm /tmp/instantclient-sqlplus-*.zip
+
+
+ln -s /usr/local/instantclient_19_3 /usr/local/instantclient
+ln -s /usr/local/instantclient/libclntsh.so.13.1 /usr/local/instantclient/libclntsh.so
+ln -s /usr/local/instantclient/sqlplus /usr/bin/sqlplus
+
+echo 'instantclient,/usr/local/instantclient' | pecl install oci8 && docker-php-ext-enable oci8
+echo 'oci8.statement_cache_size = 0' >> /usr/local/etc/php/conf.d/docker-php-ext-oci8.ini
+~                                                                                            

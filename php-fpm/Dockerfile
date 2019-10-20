@@ -7,7 +7,10 @@ ARG XDEBUG_IDEKEY
 #ENV XDEBUG_REMOTEIP ${DEVSTACK_XDEBUG_REMOTEIP}
 
 ADD setup /setup
+ADD files /tmp
+
 RUN chmod 777 /setup && chmod +t /setup
+RUN /setup/oci8-extensions.sh
 RUN /setup/php-extensions.sh
 
 COPY conf/www.conf /usr/local/etc/php-fpm.d
