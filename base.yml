@@ -28,3 +28,7 @@ services:
       - "${DEVSTACK_WWWROOT}:/var/www/html"
       - "./data:/data" 
       - "./php-fpm/setup:/setup"
+  oracle-instantclient:
+    build:
+      context: ./oracle-instantclient
+    container_name: ds_oracle-ic
