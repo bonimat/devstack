@@ -1,0 +1,6 @@
+### Inizio LDAP.ORA
+DIRECTORY_SERVERS= (oid.unibo.it:10389:10636)
+DEFAULT_ADMIN_CONTEXT = "dc=tns,dc=it"
+DIRECTORY_SERVER_TYPE = OID
+#### Fine LDAP.ORA
+ldap.ora (END)
