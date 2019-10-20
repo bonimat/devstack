@@ -7,7 +7,9 @@ if (!$conn) {
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
 
-$stid = oci_parse($conn, 'SELECT * FROM employees');
+$sql = "select instance_name, host_name ".
+"from v\$instance ";
+$stid = oci_parse($conn, $sql);
 oci_execute($stid);
 
 echo "<table border='1'>\n";
