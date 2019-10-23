@@ -17,7 +17,7 @@ ln -s /usr/local/instantclient_19_3 /usr/local/instantclient
 ln -s /usr/local/instantclient/sqlplus /usr/bin/sqlplus
 
 
-cp /tmp/*.ora $ORACLE_HOME/.
+cp /tmp/*.ora $ORACLE_HOME/network/admin/.
 
 
 echo 'instantclient,/usr/local/instantclient' | pecl install oci8 && docker-php-ext-enable oci8
