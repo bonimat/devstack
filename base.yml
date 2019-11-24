@@ -5,7 +5,7 @@ services:
     environment:
       - PHPFPM_PORT=${DEVSTACK_PHPFPM_PORT}
     build: ./apache
-    container_name: ds_apache2
+    container_name: ds_apache2${DEVSTACK_PREF_NAME}
     ports:
       - '8082:80'
       - '8445:443'
@@ -23,7 +23,7 @@ services:
       args:
         XDEBUG_REMOTEIP : "${DEVSTACK_XDEBUG_REMOTEIP}"
         XDEBUG_IDEKEY : "${DEVSTACK_XDEBUG_IDEKEY}"
-    container_name: ds_php7.2-fpm
+    container_name: ds_php7.2-fpm${DEVSTACK_PREF_NAME}
     volumes:
       - "${DEVSTACK_WWWROOT}:/var/www/html"
       - "./data:/data" 

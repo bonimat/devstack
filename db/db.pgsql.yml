@@ -2,7 +2,7 @@ version: "2"
 services:
   db:
     image: postgres:11
-    container_name: ds_pgsql
+    container_name: ds_pgsql${DEVSTACK_PREF_NAME}
     restart: always
     environment:
       POSTGRES_USER: matteo

@@ -1,7 +1,7 @@
 version: '2'
 services:
   jenkins:
-     container_name: ds_jenkins
+     container_name: ds_jenkins${DEVSTACK_PREF_NAME}
      image: jenkins:latest
      #build:
      #context: .
