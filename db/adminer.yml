@@ -4,6 +4,5 @@ services:
   adminer:
     image: dockette/adminer:full
     container_name: ds_adminer${DEVSTACK_PREF_NAME}
-    restart: always
     ports:
       - ${DEVSTACK_ADMINER_PORT}:80
