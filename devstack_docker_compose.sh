@@ -79,6 +79,11 @@ then
     then
         export DS_PGDATA="$(pwd)/pgdata"
         echo "Postgress Data: ${DS_PGDATA}"
+        if [ -f $(pwd)/pgdata/README.txt ];
+        then
+            echo 'Removed README.txt'
+            rm -f $(pwd)/pgdata/README.txt
+        fi
     fi
     echo "${messaggiodefault} db: ${DEVSTACK_DB} (to connect with adminer use username:postgres, db empty)"
     echo "To get IP for connection use: docker inspect devstack_db_1 |grep IPAddress"
