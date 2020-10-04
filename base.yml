@@ -23,7 +23,7 @@ services:
       args:
         XDEBUG_REMOTEIP : "${DEVSTACK_XDEBUG_REMOTEIP}"
         XDEBUG_IDEKEY : "${DEVSTACK_XDEBUG_IDEKEY}"
-    container_name: ds_php7.2-fpm${DEVSTACK_PREF_NAME}
+    container_name: ds_php-fpm${DEVSTACK_PREF_NAME}
     volumes:
       - "${DEVSTACK_WWWROOT}:/var/www/html"
       - "./data:/data" 
