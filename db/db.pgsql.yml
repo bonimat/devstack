@@ -8,6 +8,6 @@ services:
       POSTGRES_PASSWORD: bonimat
       POSTGRES_DB: pgdb
     ports:
-      - 5432:5432
+      - 5433:5432
     volumes:
       - $DS_PGDATA:/var/lib/postgresql/data
