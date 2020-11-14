@@ -23,7 +23,7 @@ services:
       args:
         XDEBUG_REMOTEIP : "${DEVSTACK_XDEBUG_REMOTEIP}"
         XDEBUG_IDEKEY : "${DEVSTACK_XDEBUG_IDEKEY}"
-    container_name: ds_php7.2-fpm
+    container_name: ds_php-fpm
     ports:
       - '1521:1521'
       - '10386:10386'
