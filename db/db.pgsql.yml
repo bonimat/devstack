@@ -2,12 +2,9 @@ version: "2"
 services:
   db:
     image: postgres:11
-<<<<<<< HEAD
-    container_name: ds_pgsql${DEVSTACK_PREF_NAME}
-=======
     container_name: ds_pgsql
     restart: always
->>>>>>> b6c9b937303ba2561d50fa3edeef7c637b5b6ab0
+
     environment:
       POSTGRES_USER: matteo
       POSTGRES_PASSWORD: bonimat
