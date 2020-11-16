@@ -1,5 +1,5 @@
 FROM ubuntu:latest
-MAINTAINER bonimat
+Author bonimat
 
 RUN apt-get update
 RUN apt-get -y upgrade
@@ -9,7 +9,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install apache2  curl \
 
 # Enable apache mods.
 RUN a2enmod rewrite ssl actions include cgi proxy_fcgi alias setenvif
-# RUN a2dismod php7.2
 
 # Manually set up the apache environment variables
 ENV APACHE_RUN_USER www-data
