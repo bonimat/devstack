@@ -4,4 +4,8 @@ pgdata/*
 data/*
 !data/README.txt
 config.sh
+<<<<<<< HEAD
 db/oracle-xe/files/*.rpm
+=======
+php-fpm/files/*.zip
+>>>>>>> b6c9b937303ba2561d50fa3edeef7c637b5b6ab0

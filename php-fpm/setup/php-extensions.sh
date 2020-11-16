@@ -7,17 +7,17 @@ echo "Installing apt dependencies"
 # Build packages will be added during the build, but will be removed at the end.
 BUILD_PACKAGES="gettext gnupg libcurl4-openssl-dev libfreetype6-dev libicu-dev libjpeg62-turbo-dev \
   libldap2-dev libmariadbclient-dev libmemcached-dev libpng-dev libpq-dev libxml2-dev libxslt-dev \
-  unixodbc-dev"
+  unixodbc-dev uuid-dev"
 
 # Packages for Postgres.
 PACKAGES_POSTGRES="libpq5"
 
 # Packages for MariaDB and MySQL.
 #PACKAGES_MYMARIA="libmariadbclient18"
-PACKAGES_MYMARIA="mariadb-client"
+PACKAGES_MYMARIA="libmariadb3"
 
 # Packages for other Moodle runtime dependenices.
-PACKAGES_RUNTIME="ghostscript libaio1 libgss3 libmcrypt-dev libxml2 libxslt1.1 \
+PACKAGES_RUNTIME="ghostscript libaio1 libcurl4 libgss3 libicu63 libmcrypt-dev libxml2 libxslt1.1 \
   libzip-dev locales sassc unixodbc unzip zip"
 
 # Packages for Memcached.
@@ -54,7 +54,11 @@ docker-php-ext-install -j$(nproc) \
     xmlrpc
 
 # GD.
+<<<<<<< HEAD
 #docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+=======
+docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/
+>>>>>>> b6c9b937303ba2561d50fa3edeef7c637b5b6ab0
 docker-php-ext-install -j$(nproc) gd
 
 # LDAP.
@@ -64,11 +68,15 @@ docker-php-ext-install -j$(nproc) ldap
 # Note solr is missing. Ref: https://github.com/moodlehq/moodle-php-apache/issues/19
 
 # Memcached, MongoDB, Redis, APCu, igbinary.
-pecl install memcached mongodb redis apcu igbinary
-docker-php-ext-enable memcached redis apcu igbinary
+pecl install memcached mongodb redis apcu igbinary solr uuid
+docker-php-ext-enable memcached mongodb redis apcu igbinary solr uuid
 
 # ZIP
+<<<<<<< HEAD
 #docker-php-ext-configure zip --with-libzip
+=======
+docker-php-ext-configure zip --with-zip
+>>>>>>> b6c9b937303ba2561d50fa3edeef7c637b5b6ab0
 docker-php-ext-install zip
 
 echo 'apc.enable_cli = On' >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
