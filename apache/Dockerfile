@@ -1,5 +1,4 @@
 FROM ubuntu:latest
-Author bonimat
 
 RUN apt-get update
 RUN apt-get -y upgrade
