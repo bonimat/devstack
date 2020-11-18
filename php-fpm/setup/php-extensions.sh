@@ -54,11 +54,9 @@ docker-php-ext-install -j$(nproc) \
     xmlrpc
 
 # GD.
-<<<<<<< HEAD
-#docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
-=======
+
 docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/
->>>>>>> b6c9b937303ba2561d50fa3edeef7c637b5b6ab0
+
 docker-php-ext-install -j$(nproc) gd
 
 # LDAP.
@@ -72,11 +70,8 @@ pecl install memcached mongodb redis apcu igbinary solr uuid
 docker-php-ext-enable memcached mongodb redis apcu igbinary solr uuid
 
 # ZIP
-<<<<<<< HEAD
-#docker-php-ext-configure zip --with-libzip
-=======
+
 docker-php-ext-configure zip --with-zip
->>>>>>> b6c9b937303ba2561d50fa3edeef7c637b5b6ab0
 docker-php-ext-install zip
 
 echo 'apc.enable_cli = On' >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
