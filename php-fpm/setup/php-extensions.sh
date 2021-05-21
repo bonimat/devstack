@@ -51,7 +51,8 @@ docker-php-ext-install -j$(nproc) \
     pgsql \
     soap \
     xsl \
-    xmlrpc
+    xmlrpc \
+    bcmath
 
 # GD.
 

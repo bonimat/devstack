@@ -49,10 +49,10 @@ echo "${messaggiodefault} port: \$DEVSTACK_PHPFPM_PORT = 8999"
 
 if [ -z "$DEVSTACK_XDEBUG_PORT" ];
 then
-    export DEVSTACK_XDEBUG_PORT=9000
+    export DEVSTACK_XDEBUG_PORT=9003
     messaggiodefault='Use default '
 fi
-echo "${messaggiodefault} port: \$DEVSTACK_XDEBUG_PORT = 9000"
+echo "${messaggiodefault} port: \$DEVSTACK_XDEBUG_PORT = 9003"
 
 if [ -z "${DEVSTACK_XDEBUG_IDEKEY}" ];
 then
