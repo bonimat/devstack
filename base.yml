@@ -17,19 +17,18 @@ services:
   php-fpm:
     environment:
       - PHPFPM_PORT=${DEVSTACK_PHPFPM_PORT}
-      - XDEBUG_PORT=${DEVSTACK_XDEBUG_PORT}
     build: 
       context: ./php-fpm
       args:
         XDEBUG_REMOTEIP : ${DEVSTACK_XDEBUG_REMOTEIP}
         XDEBUG_IDEKEY : ${DEVSTACK_XDEBUG_IDEKEY}
+        XDEBUG_PORT: ${DEVSTACK_XDEBUG_PORT}
     container_name: ds_php-fpm${DEVSTACK_PREF_NAME}
     ports:
       - '1521:1521'
       - '10386:10386'
       - '10389:10389'
-      - '9003:9004'
-
+      - "${DEVSTACK_XDEBUG_PORT}:${DEVSTACK_XDEBUG_PORT}" 
     volumes:
       - "${DEVSTACK_WWWROOT}:/var/www/html"
       - "./data:/data" 
