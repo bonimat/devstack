@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:8.0-fpm
 ARG XDEBUG_PORT
 ARG XDEBUG_IDEKEY
 
@@ -28,5 +28,5 @@ RUN pecl install xdebug \
 && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/xdebug.ini \
 && echo "xdebug.client_port=${XDEBUG_PORT}" >> /usr/local/etc/php/conf.d/xdebug.ini
 
-RUN curl -L -o /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-7.5.phar
+RUN curl -L -o /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-9.5.phar
 RUN chmod +x /usr/local/bin/phpunit

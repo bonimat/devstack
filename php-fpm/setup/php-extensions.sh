@@ -50,9 +50,9 @@ docker-php-ext-install -j$(nproc) \
     opcache \
     pgsql \
     soap \
-    xsl \
-    xmlrpc \
-    bcmath
+    xsl 
+#    xmlrpc \
+#    bcmath
 
 # GD.
 
