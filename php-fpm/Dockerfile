@@ -25,8 +25,10 @@ RUN pecl install xdebug \
 && echo "xdebug.start_with_request=yes">> /usr/local/etc/php/conf.d/xdebug.ini \
 && echo "xdebug.idekey=${XDEBUG_IDEKEY}">> /usr/local/etc/php/conf.d/xdebug.ini \
 && echo "xdebug.discover_client_host=true" >> /usr/local/etc/php/conf.d/xdebug.ini \
-&& echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/xdebug.ini \
+&& echo "xdebug.client_host=172.18.0.1" >> /usr/local/etc/php/conf.d/xdebug.ini \
 && echo "xdebug.client_port=${XDEBUG_PORT}" >> /usr/local/etc/php/conf.d/xdebug.ini
 
 RUN curl -L -o /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-7.5.phar
 RUN chmod +x /usr/local/bin/phpunit
+
+RUN curl -sL https://getcomposer.org/installer | php -- --install-dir /usr/bin --filename composer

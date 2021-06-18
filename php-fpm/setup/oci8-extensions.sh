@@ -13,12 +13,12 @@ rm /tmp/instantclient-sqlplus-*.zip
 unzip /tmp/instantclient-sdk-*.zip -d /usr/local/
 rm /tmp/instantclient-sdk-*.zip
 
-ln -s /usr/local/instantclient_19_9 /usr/local/instantclient
+ln -s /usr/local/instantclient_19_3 /usr/local/instantclient
 ln -s /usr/local/instantclient/sqlplus /usr/bin/sqlplus
 
-mkdir -p /usr/local/instantclient_19_9/network/admin
+mkdir -p /usr/local/instantclient_19_3/network/admin
 cp /tmp/*.ora $ORACLE_HOME/network/admin/.
 
 
-echo 'instantclient,/usr/local/instantclient' | pecl install oci8 && docker-php-ext-enable oci8
+echo 'instantclient,/usr/local/instantclient' | pecl install oci8-2.2.0 && docker-php-ext-enable oci8
 echo 'oci8.statement_cache_size = 0' >> /usr/local/etc/php/conf.d/docker-php-ext-oci8.ini                                                                                            
