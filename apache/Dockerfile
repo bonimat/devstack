@@ -4,7 +4,7 @@ RUN apt-get update
 RUN apt-get -y upgrade
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install apache2  curl \
-            apache2-doc apache2-utils libapache2-mod-php 
+    apache2-doc apache2-utils libapache2-mod-php 
 
 # Enable apache mods.
 RUN a2enmod rewrite ssl actions include cgi proxy_fcgi alias setenvif
@@ -24,8 +24,10 @@ EXPOSE $DEVSTACK_PHPFPM_PORT
 #Copy configuration for php.fpm
 COPY conf/php-fpm.conf /etc/apache2/conf-available
 COPY conf/000-default.conf /etc/apache2/sites-available
+COPY conf/directory.conf /etc/apache2/conf-available
 
 RUN a2enconf php-fpm
+RUN a2enconf directory.conf
 RUN a2ensite 000-default.conf
 
 
