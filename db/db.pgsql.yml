@@ -1,7 +1,7 @@
 version: "2"
 services:
   db:
-    image: postgres:11
+    image: postgres:14
     container_name: ds_pgsql
     restart: always
 
