@@ -13,7 +13,7 @@ RUN chmod 777 /setup && chmod +t /setup
 RUN apt-get update
 RUN apt-get install unzip
 RUN /setup/oci8-extensions.sh
-RUN /setup/php-extensions.sh
+#RUN /setup/php-extensions.sh
 
 COPY conf/www.conf /usr/local/etc/php-fpm.d
 COPY conf/zz-docker.conf /usr/local/etc/php-fpm.d

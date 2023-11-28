@@ -4,19 +4,19 @@ set -e
 
 echo "Unzip oracle files"
 
-unzip /tmp/instantclient-basic-linux.x64-*.zip -d /usr/local/
-rm /tmp/instantclient-basic-linux.x64-*.zip
-unzip /tmp/instantclient-tools-linux.x64-*.zip -d /usr/local/
-rm /tmp/instantclient-tools-linux.x64-*.zip
-unzip /tmp/instantclient-sqlplus-*.zip -d /usr/local/
-rm /tmp/instantclient-sqlplus-*.zip
-unzip /tmp/instantclient-sdk-*.zip -d /usr/local/
-rm /tmp/instantclient-sdk-*.zip
+unzip /tmp/instantclient-basic-linuxx64*.zip -d /usr/local/
+rm /tmp/instantclient-basic-linuxx64*.zip
+unzip /tmp/instantclient-tools-linuxx64*.zip -d /usr/local/
+rm /tmp/instantclient-tools-linuxx64*.zip
+unzip /tmp/instantclient-sqlplus*.zip -d /usr/local/
+rm /tmp/instantclient-sqlplus*.zip
+unzip /tmp/instantclient-sdk*.zip -d /usr/local/
+rm /tmp/instantclient-sdk*.zip
 
-ln -s /usr/local/instantclient_19_3 /usr/local/instantclient
+ln -s /usr/local/instantclient_21_12 /usr/local/instantclient
 ln -s /usr/local/instantclient/sqlplus /usr/bin/sqlplus
 
-mkdir -p /usr/local/instantclient_19_3/network/admin
+mkdir -p /usr/local/instantclient_21_12/network/admin
 cp /tmp/*.ora $ORACLE_HOME/network/admin/.
 
 
