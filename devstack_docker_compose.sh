@@ -114,7 +114,7 @@ dockercompose="${dockercompose} -f ${basedir}/db/adminer.yml"
 echo "${messaggiodefault} port: \$DEVSTACK_ADMINER_PORT=8090"
 
 
-dockercompose="docker-compose -f ${basedir}/base.yml ${dockercompose}"
+dockercompose="docker compose -f ${basedir}/base.yml ${dockercompose}"
 
 # Mailhog service
 export DEVSTACK_CONFMAILHOG="${basedir}/mailhog/conf"
