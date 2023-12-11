@@ -12,4 +12,4 @@ services:
     ports:
       - 5433:5432
     volumes:
-      - $DS_PGDATA:/var/lib/postgresql/data
+      - $DEVSTACK_PGDATA:/var/lib/postgresql/data

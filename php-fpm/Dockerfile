@@ -13,7 +13,7 @@ RUN chmod 777 /setup && chmod +t /setup
 RUN apt-get update
 RUN apt-get install unzip
 RUN /setup/oci8-extensions.sh
-#RUN /setup/php-extensions.sh
+RUN /setup/php-extensions.sh
 
 COPY conf/www.conf /usr/local/etc/php-fpm.d
 COPY conf/zz-docker.conf /usr/local/etc/php-fpm.d
@@ -23,11 +23,11 @@ RUN echo $XDEBUG_IDEKEY
 
 RUN pecl install xdebug-3.1.5 \
     && docker-php-ext-enable xdebug\
-    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini\
+#    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini\
     && echo "xdebug.mode=debug">> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.start_with_request=yes">> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.idekey=${XDEBUG_IDEKEY}">> /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.discover_client_host=true" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.discover_client_host=1" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.client_host=172.18.0.1" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.client_port=${XDEBUG_PORT}" >> /usr/local/etc/php/conf.d/xdebug.ini
 

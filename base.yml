@@ -11,7 +11,7 @@ services:
       - '8445:443'
     volumes:
       - "${DEVSTACK_WWWROOT}:/var/www/html"
-      - "./data:/data"
+      - "${DEVSTACK_DATA:-./data}:/data"
     links:
       - php-fpm
   php-fpm:
@@ -31,5 +31,5 @@ services:
         #      - "${DEVSTACK_XDEBUG_PORT}:${DEVSTACK_XDEBUG_PORT}" 
     volumes:
       - "${DEVSTACK_WWWROOT}:/var/www/html"
-      - "./data:/data" 
+      - "${DEVSTACK_DATA:-./data}:/data" 
       - "./php-fpm/setup:/setup"
