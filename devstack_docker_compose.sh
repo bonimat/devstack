@@ -132,6 +132,9 @@ then
     dockercompose="${dockercompose} -f ${basedir}/jenkins/jenkins.yml"
 fi
 
+# Smtp-server: postfix
+# dockercompose="${dockercompose} -f ${basedir}/smtp-server/postfix.yml"
+
  #!/bin/bash
  if [ "$#" -eq  "0" ]
    then
