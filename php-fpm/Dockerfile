@@ -11,7 +11,7 @@ ENV LD_LIBRARY_PATH="$ORACLE_HOME"
 
 RUN chmod 777 /setup && chmod +t /setup
 RUN apt-get update
-RUN apt-get install unzip
+RUN apt-get install unzip 
 RUN /setup/oci8-extensions.sh
 RUN /setup/php-extensions.sh
 
@@ -29,6 +29,7 @@ RUN pecl install xdebug-3.1.5 \
     && echo "xdebug.idekey=${XDEBUG_IDEKEY}">> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.discover_client_host=1" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.client_host=172.18.0.1" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.log_level=0" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.client_port=${XDEBUG_PORT}" >> /usr/local/etc/php/conf.d/xdebug.ini
 
 RUN curl -L -o /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-7.5.phar
