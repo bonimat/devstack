@@ -6,3 +6,4 @@ data/*
 config.sh
 db/oracle-xe/files/*.rpm
 php-fpm/files/*.zip
+.data/

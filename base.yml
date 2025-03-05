@@ -14,6 +14,13 @@ services:
       - "${DEVSTACK_DATA:-./data}:/data"
     links:
       - php-fpm
+  cache:
+    image: redis:7.4.1-alpine
+    container_name: ds_cache${DEVSTACK_PREF_NAME}
+    volumes:
+      - ./.data/redis:/data
+    ports:
+      - 6379:6379
   php-fpm:
     environment:
       - PHPFPM_PORT=${DEVSTACK_PHPFPM_PORT}
