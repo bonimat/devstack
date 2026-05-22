@@ -1,8 +1,7 @@
-version: "2"
 services:
   db:
     build: ./db/oracle-xe 
-    container_name: ds_oracle${DEVSTACK_PREF_NAME}
+    container_name: ${DEVSTACK_PREF_NAME:-ds}_oracle
     ports:
       - 32118:1521
       - 35518:5500

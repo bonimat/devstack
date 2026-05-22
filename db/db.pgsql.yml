@@ -1,8 +1,7 @@
-version: "2"
 services:
   db:
-    image: postgres:14
-    container_name: ds_pgsql
+    image: postgres:17
+    container_name: ${DEVSTACK_PREF_NAME:-ds}_pgsql
     restart: always
 
     environment:

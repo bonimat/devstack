@@ -1,11 +1,9 @@
-version: '2'
-
 services:
   apache:
     environment:
       - PHPFPM_PORT=${DEVSTACK_PHPFPM_PORT}
     build: ./apache
-    container_name: ds_apache2${DEVSTACK_PREF_NAME}
+    container_name: ${DEVSTACK_PREF_NAME:-ds}_apache2
     ports:
       - '8082:80'
       - '8445:443'
@@ -14,13 +12,13 @@ services:
       - "${DEVSTACK_DATA:-./data}:/data"
     links:
       - php-fpm
-  cache:
-    image: redis:7.4.1-alpine
-    container_name: ds_cache${DEVSTACK_PREF_NAME}
-    volumes:
-      - ./.data/redis:/data
-    ports:
-      - 6379:6379
+  # cache:
+  #   image: redis:7.4.1-alpine
+  #   container_name: ds_cache${DEVSTACK_PREF_NAME}
+  #   volumes:
+  #     - ./.data/redis:/data
+  #   ports:
+  #     - 6379:6379
   php-fpm:
     environment:
       - PHPFPM_PORT=${DEVSTACK_PHPFPM_PORT}
@@ -30,7 +28,7 @@ services:
         XDEBUG_REMOTEIP : ${DEVSTACK_XDEBUG_REMOTEIP}
         XDEBUG_IDEKEY : ${DEVSTACK_XDEBUG_IDEKEY}
         XDEBUG_PORT: ${DEVSTACK_XDEBUG_PORT}
-    container_name: ds_php-fpm${DEVSTACK_PREF_NAME}
+    container_name: ${DEVSTACK_PREF_NAME:-ds}_php-fpm
     ports:
       - '1521:1521'
       - '10386:10386'

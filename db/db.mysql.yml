@@ -1,8 +1,7 @@
-version: "2"
 services:
   db:
     image: mysql:5
-    container_name: ds_mysql${DEVSTACK_PREF_NAME}
+    container_name: ${DEVSTACK_PREF_NAME:-ds}_mysql
     command: >
                 --character-set-server=utf8mb4
                 --collation-server=utf8mb4_bin

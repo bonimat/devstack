@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:8.3-fpm
 ARG XDEBUG_PORT
 ARG XDEBUG_IDEKEY
 
@@ -12,7 +12,7 @@ ENV LD_LIBRARY_PATH="$ORACLE_HOME"
 RUN chmod 777 /setup && chmod +t /setup
 RUN apt-get update
 RUN apt-get install unzip 
-RUN /setup/oci8-extensions.sh
+# RUN /setup/oci8-extensions.sh
 RUN /setup/php-extensions.sh
 
 COPY conf/www.conf /usr/local/etc/php-fpm.d
@@ -21,7 +21,7 @@ COPY conf/php.ini /usr/local/etc/php
 
 RUN echo $XDEBUG_IDEKEY
 
-RUN pecl install xdebug-3.1.5 \
+RUN pecl install xdebug \
     && docker-php-ext-enable xdebug\
 #    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini\
     && echo "xdebug.mode=debug">> /usr/local/etc/php/conf.d/xdebug.ini \
@@ -32,7 +32,7 @@ RUN pecl install xdebug-3.1.5 \
     && echo "xdebug.log_level=0" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.client_port=${XDEBUG_PORT}" >> /usr/local/etc/php/conf.d/xdebug.ini
 
-RUN curl -L -o /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-7.5.phar
+RUN curl -L -o /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-12.phar
 RUN chmod +x /usr/local/bin/phpunit
 
 RUN curl -sL https://getcomposer.org/installer | php -- --install-dir /usr/bin --filename composer
