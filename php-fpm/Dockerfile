@@ -23,7 +23,6 @@ RUN echo $XDEBUG_IDEKEY
 
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug\
-#    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini\
     && echo "xdebug.mode=debug">> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.start_with_request=yes">> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.idekey=${XDEBUG_IDEKEY}">> /usr/local/etc/php/conf.d/xdebug.ini \
@@ -35,4 +34,5 @@ RUN pecl install xdebug \
 RUN curl -L -o /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-12.phar
 RUN chmod +x /usr/local/bin/phpunit
 
-RUN curl -sL https://getcomposer.org/installer | php -- --install-dir /usr/bin --filename composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
